@@ -15,7 +15,7 @@ Designed for **CoinsPH Spot Trading**.
 
 ### ❌ Deprecated or Fixed
 
-- ~~Fee is hardcoded fixed at tier 1 maker's fee of 0.25%~~  
+- ~~Fee is hardcoded fixed at tier 0 maker's fee of 0.25%~~  
   ✅ Now dynamically adjustable from v4 onward
 
 - ~~CoinsPH Crypto Trading Calculator v1~~ – _Break-even calculation is inaccurate_  
