@@ -187,7 +187,26 @@ int main() {
 
         double customGrossSale = customExitPrice * sellCoinAmount;
         double customSellFee = customGrossSale * makerFeeRate;
-        double proportionalBuyCost = (totalBuyCost / coinAmount) * sellCoinAmount;
+        
+        /**************************************************************************
+        this calculation is wrong when you sell more than the amount of coins you bought
+	double proportionalBuyCost = (totalBuyCost / coinAmount) * sellCoinAmount;
+	***************************************************************************
+	this one works like the new one but the other one looks nicer
+        double extraFreeCoins = sellCoinAmount - coinAmount;
+	if (extraFreeCoins < 0) extraFreeCoins = 0;
+	double proportionalBuyCost = totalBuyCost + (0 * extraFreeCoins);
+	*/
+		
+	//new proportional buy cost calculation ignoring the sell amount of coins if it's greater than the 
+	//buy amount to show the proper net gain
+	double proportionalBuyCost;
+	if (sellCoinAmount <= coinAmount)
+    	proportionalBuyCost = (totalBuyCost / coinAmount) * sellCoinAmount;
+	else
+    	proportionalBuyCost = totalBuyCost;  // Only count what you actually paid for
+
+
         double customNetProfit = customGrossSale - proportionalBuyCost - customSellFee;
 
         std::cout << "Gross Sale: PHP " << customGrossSale << "\n";
@@ -213,4 +232,3 @@ int main() {
 
     return 0;
 }
-
