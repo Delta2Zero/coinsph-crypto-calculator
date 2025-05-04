@@ -1,19 +1,46 @@
-a bunch of calculators since i'm lazy doing math and crypto moves too fast anyway coded with the help of chatgpt
+# CoinsPH Crypto Trading Calculator
 
-to be used with coinsph spot trading 
+> A bunch of automation tools I built (with ChatGPT's help) because I'm too lazy to do math and crypto moves too fast.
 
-~~fee is hardcoded fixed at tier 1 makers fee of 0.25%~~
+Designed for **CoinsPH Spot Trading**.
 
-you can choose the tier level of you coins level VIP trading fee in version 5
+---
 
-~~coinsph crypto trading calculator v1~~ "break-even calculation is inaccurate"
-~~coinsph crypto trading calculator v2~~ "break-even calculation is still inaccurate"
-coinsph crypto trading calculator v3 "break-even calculation deleted in favor of integrating brute force break even calculator"
-~~coinsph crypto trading calculator v4~~ "you can now choose your VIP tier on every start of the loop before the calculations"
-coinsph crypto trading calculator v5 "added the capital before you enter the buy in trade and the net profit is added to the total capital/wallet amount you have"
+### ✅ Key Features in Version 5
+- Choose your VIP tier trading fee at the start of each loop
+- Capital input before each buy-in trade
+- Net profit is added to your total wallet/capital amount
 
-~~coins ph breakeven (Bruteforce) calculator~~ "because... added to V3 to V5"
+---
 
-Crypto Capital to Coin converter "math is hard you know, simple math automation thing because i don't like math"
+### ❌ Deprecated or Fixed
 
-that's it this is just a bunch of automation tools and i wrestled with chatgpt to correct some of the functions of it 
+- ~~Fee is hardcoded fixed at tier 1 maker's fee of 0.25%~~  
+  ✅ Now dynamically adjustable from v4 onward
+
+- ~~CoinsPH Crypto Trading Calculator v1~~ – _Break-even calculation is inaccurate_  
+- ~~CoinsPH Crypto Trading Calculator v2~~ – _Break-even calculation is still inaccurate_
+
+---
+
+### 📈 Version History
+
+- **v3** – Break-even calculation deleted in favor of integrating a brute-force calculator  
+- ~~v4~~ – VIP fee tier selector added  
+- **v5** – Capital tracking and net profit calculation added
+
+---
+
+### 🧮 Other Tools
+
+- ~~CoinsPH Break-even (Brute-force) Calculator~~ – _Merged into v3 to v5_  
+- **Crypto Capital to Coin Converter** – “Math is hard, you know. This is a simple automation tool because I don’t like math.”
+
+---
+
+### 🤝 Notes
+
+I wrestled with ChatGPT to correct some of the functions and made sure it does exactly what I need.
+
+---
+
