@@ -4,6 +4,30 @@
 #include <sstream>
 #include <limits>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+void resizeConsoleWindow() {
+#ifdef _WIN32
+    HWND console = GetConsoleWindow();
+    if (console != NULL) {
+        // MoveWindow(hwnd, x, y, width_px, height_px, repaint)
+        MoveWindow(console, 100, 100, 650, 500, TRUE); // Width and height in pixels
+    }
+
+    // Set the screen buffer size so lines don't wrap or scroll unnecessarily
+    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    if (hOut != INVALID_HANDLE_VALUE) {
+        CONSOLE_SCREEN_BUFFER_INFO csbi;
+        GetConsoleScreenBufferInfo(hOut, &csbi);
+        COORD newSize = {120, 500}; // Width in characters, height in lines
+        SetConsoleScreenBufferSize(hOut, newSize);
+    }
+#endif
+}
+
+
 /* 
 This Program was written with the help of chatgpt mostly written by chatgpt with logic and prompt handling 
 by DeltaTwoZero
@@ -22,6 +46,7 @@ This Program is only for coinsph Trading and cannot be used like a God Calculato
 only helps automate the math logic for faster decision making in the fast moving market	
 */
 int main() {
+    resizeConsoleWindow(); // set up console size
     std::string input;
     double marketPrice, coinAmount, customExitPrice, sellCoinAmount, totalCapital = 0.0;
 
@@ -32,18 +57,22 @@ int main() {
         std::cout << "\n Written by Chatgpt, Prompt and code checking and testing my DeltaTwoZero \n";
         std::cout << "\n Coinsph Crypto Trading Calculator Version 6 \n";
         std::cout << "\n Enter your total capital or type 'exit' to quit \n";
+        std::cout << "\n type exit on any input field to exit the application \n";
+        std::cout << "\n type clear to clear the console and restart the application \n";
         std::cout << "\n***************************************************************************\n";
         std::cout << "***************************************************************************\n";
         std::cout << "Capital: ";
         
         std::getline(std::cin, input);
 
-        if (input == "exit") {
-            break;
+        if (input == "exit" || input == "EXIT") break;
+        if (input == "clear" || input == "CLEAR") {
+            system("cls"); // Clear console on Windows
+            continue;
         }
         
         std::stringstream capitalStream(input);
-        if (!(capitalStream >> totalCapital) || totalCapital <= 0) {
+        if (!(capitalStream >> totalCapital)) {
             std::cout << "Invalid input. Please enter a valid number for total capital.\n";
             continue;
         }
@@ -73,6 +102,11 @@ int main() {
 	std::cout << "Enter VIP Tier (0-9) or 'custom': ";
 	std::getline(std::cin, input);
 
+    if (input == "exit" || input == "EXIT") break;
+    if (input == "clear" || input == "CLEAR") {
+        system("cls"); // Clear console on Windows
+        continue;
+    }
 	// --- Fee Decision Logic ---
 	if (input == "custom" || input == "Custom" || input == "CUSTOM") {
     	isCustom = true;
@@ -81,17 +115,32 @@ int main() {
     	std::getline(std::cin, input);
    		sameFee = (input == "yes" || input == "Yes");
 
+    	if (input == "exit" || input == "EXIT") break;
+    	if (input == "clear" || input == "CLEAR") {
+        	system("cls"); // Clear console on Windows
+        	continue;
+    	}
     	if (sameFee) {
     	    std::cout << "Enter fee % for both Buy and Sell (e.g., 0.30 for 0.30%): ";
    	 	    std::getline(std::cin, input);
    	 	    std::stringstream feeStream(input);
     	    double feePercent;
+    		if (input == "exit" || input == "EXIT") break;
+    		if (input == "clear" || input == "CLEAR") {
+        		system("cls"); // Clear console on Windows
+        		continue;
+    		}
         if (!(feeStream >> feePercent) || feePercent < 0 || feePercent > 100)
     	        feePercent = 0.30;
     	    buyFeeRate = sellFeeRate = feePercent / 100.0;
     	} else {
    		     std::cout << "Enter Buy fee % (e.g., 0.30 for 0.30%): ";
    		     std::getline(std::cin, input);
+    		if (input == "exit" || input == "EXIT") break;
+    		if (input == "clear" || input == "CLEAR") {
+        		system("cls"); // Clear console on Windows
+        		continue;
+    		}
    		    std::stringstream buyStream(input);
    	     double feePercent;
     	    if (!(buyStream >> feePercent) || feePercent < 0 || feePercent > 100)
@@ -100,6 +149,11 @@ int main() {
 
 	        std::cout << "Enter Sell fee % (e.g., 0.25 for 0.25%): ";
     	    std::getline(std::cin, input);
+    		if (input == "exit" || input == "EXIT") break;
+    		if (input == "clear" || input == "CLEAR") {
+        		system("cls"); // Clear console on Windows
+        		continue;
+    		}
 	        std::stringstream sellStream(input);
 	        if (!(sellStream >> feePercent) || feePercent < 0 || feePercent > 100)
     	   	    feePercent = 0.25;
@@ -127,6 +181,11 @@ int main() {
         // Step 3: Ask for the market price
         std::cout << "\nEnter the market price: ";
         std::getline(std::cin, input);
+    	if (input == "exit" || input == "EXIT") break;
+    	if (input == "clear" || input == "CLEAR") {
+        	system("cls"); // Clear console on Windows
+        	continue;
+    	}
         std::stringstream priceStream(input);
         if (!(priceStream >> marketPrice)) {
             std::cout << "Invalid input. Please enter a valid number for market price.\n";
@@ -136,6 +195,11 @@ int main() {
         // Step 4: Ask for the coin amount to buy
         std::cout << "Enter the amount of coin you bought: ";
         std::getline(std::cin, input);
+    	if (input == "exit" || input == "EXIT") break;
+    	if (input == "clear" || input == "CLEAR") {
+        	system("cls"); // Clear console on Windows
+        	continue;
+    	}
         std::stringstream coinStream(input);
         if (!(coinStream >> coinAmount)) {
             std::cout << "Invalid input. Please enter a valid number for coin amount.\n";
@@ -145,6 +209,11 @@ int main() {
         // Step 5: Ask for the exit market price
         std::cout << "Enter your planned custom exit price: ";
         std::getline(std::cin, input);
+    	if (input == "exit" || input == "EXIT") break;
+    	if (input == "clear" || input == "CLEAR") {
+        	system("cls"); // Clear console on Windows
+        	continue;
+    	}
         std::stringstream customExitStream(input);
         if (!(customExitStream >> customExitPrice)) {
             std::cout << "Invalid input. Please enter a valid number for custom exit price.\n";
@@ -154,6 +223,11 @@ int main() {
         // Step 6: Ask for how many coins to sell
         std::cout << "Enter how many coins you plan to sell (can be less than bought): ";
         std::getline(std::cin, input);
+    	if (input == "exit" || input == "EXIT") break;
+    	if (input == "clear" || input == "CLEAR") {
+        	system("cls"); // Clear console on Windows
+        	continue;
+    	}
         std::stringstream sellAmountStream(input);
         if (!(sellAmountStream >> sellCoinAmount)) {
             std::cout << "Invalid input. Please enter a valid number for selling coin amount.\n";
